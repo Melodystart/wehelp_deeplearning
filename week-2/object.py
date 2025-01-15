@@ -68,6 +68,21 @@ print("Print the perimeter of Polygon A.", polygonA.perimeter())
 print("====================")
 
 # Task 2:
+class BasicTower(Circle):
+    def __init__(self, center):
+        super().__init__(center, 2)
+        self.damage = 1
+
+    def attack(self, enemy):
+        if enemy.life > 0:
+            enemy.life -= self.damage
+
+class AdvancedTower(BasicTower):
+    def __init__(self, center):
+        super().__init__(center)
+        self.r = 4
+        self.damage = 2
+
 class Enemy:
     def __init__(self, label, position, life, move):
         self.label = label
@@ -75,34 +90,31 @@ class Enemy:
         self.life = life
         self.move = move
 
-def attack(enemy, damage):
-    if enemy.life > 0:
-        enemy.life -= damage
        
-T1 = Circle((-3,2),2)
-T2 = Circle((-1, -2),2)
-T3 = Circle((4, 2),2)
-T4 = Circle((7, 0),2)
-A1 = Circle((1, 1), 4)
-A2 = Circle((4, -3), 4)
+T1 = BasicTower((-3,2))
+T2 = BasicTower((-1, -2))
+T3 = BasicTower((4, 2))
+T4 = BasicTower((7, 0))
+A1 = AdvancedTower((1, 1))
+A2 = AdvancedTower((4, -3))
 E1 = Enemy("E1", (-10, 2), 10, (2, -1))
 E2 = Enemy("E2", (-8, 0), 10, (3, 1))
 E3 = Enemy("E3", (-9, -1), 10, (3, 0))
 
-BasicTower = [T1, T2, T3, T4]
-AdvancedTower = [A1, A2]
+BasicTowers = [T1, T2, T3, T4]
+AdvancedTowers = [A1, A2]
 Enemies = [E1, E2, E3]
 
 for i in range(1, 11):
     for E in Enemies:
         if E.life > 0:
             E.position = (E.position[0] + E.move[0], E.position[1] + E.move[1])
-            for T in BasicTower:
+            for T in BasicTowers:
                 if T.isInside(E.position):
-                    attack(E, 1)
-            for A in AdvancedTower:
+                    T.attack(E)
+            for A in AdvancedTowers:
                 if A.isInside(E.position):
-                    attack(E, 2)
+                    A.attack(E)
 
 for E in Enemies:
     print(E.label, E.position[0], E.position[1], E.life)
