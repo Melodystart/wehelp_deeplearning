@@ -101,20 +101,16 @@ E1 = Enemy("E1", (-10, 2), 10, (2, -1))
 E2 = Enemy("E2", (-8, 0), 10, (3, 1))
 E3 = Enemy("E3", (-9, -1), 10, (3, 0))
 
-BasicTowers = [T1, T2, T3, T4]
-AdvancedTowers = [A1, A2]
+Towers = [T1, T2, T3, T4, A1, A2]
 Enemies = [E1, E2, E3]
 
 for i in range(1, 11):
     for E in Enemies:
         if E.life > 0:
             E.position = (E.position[0] + E.move[0], E.position[1] + E.move[1])
-            for T in BasicTowers:
+            for T in Towers:
                 if T.isInside(E.position):
                     T.attack(E)
-            for A in AdvancedTowers:
-                if A.isInside(E.position):
-                    A.attack(E)
 
 for E in Enemies:
     print(E.label, E.position[0], E.position[1], E.life)
