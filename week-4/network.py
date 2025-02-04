@@ -76,42 +76,50 @@ print("------ Model 1 ------")
 network = Network(2,[[[0.5, 0.6],[0.2, -0.6]],[[0.8,0.4],[-0.5,0.5]]],[[0.3, 0.25],[0.6,-0.25]],[1,1])
 
 outputs = network.forward([1.5, 0.5], "ReLu", "Linear")
+expects = [0.8, 1]
 print("Outputs", outputs)
-print("Total Loss", MSE(network, outputs, [0.8, 1]))
+print("Total Loss", MSE(network, outputs, expects))
 
 outputs = network.forward([0, 1], "ReLu", "Linear")
+expects = [0.5, 0.5]
 print("Outputs", outputs)
-print("Total Loss", MSE(network, outputs, [0.5, 0.5]))
+print("Total Loss", MSE(network, outputs, expects))
 
 print("------ Model 2 ------")
 network = Network(2,[[[0.5, 0.6],[0.2, -0.6]],[[0.8],[0.4]]],[[0.3, 0.25],[-0.5]],[1,1])
 outputs = network.forward([0.75, 1.25], "ReLu", "Sigmoid")
+expects = [1]
 print("Outputs", outputs)
-print("Total Loss", BinaryCrossEntropy(network, outputs, [1]))
+print("Total Loss", BinaryCrossEntropy(network, outputs, expects))
 
 outputs = network.forward([-1, 0.5], "ReLu", "Sigmoid")
+expects = [0]
 print("Outputs", outputs)
-print("Total Loss", BinaryCrossEntropy(network, outputs, [0]))
+print("Total Loss", BinaryCrossEntropy(network, outputs, expects))
 
 print("------ Model 3 ------")
 network = Network(2,[[[0.5, 0.6],[0.2, -0.6]],[[0.8, 0.5, 0.3],[-0.4, 0.4, 0.75]]],[[0.3, 0.25],[0.6, 0.5, -0.5]],[1,1])
 outputs = network.forward([1.5, 0.5], "ReLu", "Sigmoid")
+expects = [1, 0, 1]
 print("Outputs", outputs)
-print("Total Loss", BinaryCrossEntropy(network, outputs, [1, 0, 1]))
+print("Total Loss", BinaryCrossEntropy(network, outputs, expects))
 
 outputs = network.forward([0, 1], "ReLu", "Sigmoid")
+expects = [1, 1, 0]
 print("Outputs", outputs)
-print("Total Loss", BinaryCrossEntropy(network, outputs, [1, 1, 0]))
+print("Total Loss", BinaryCrossEntropy(network, outputs, expects))
 
 print("------ Model 4 ------")
 network = Network(2,[[[0.5, 0.6],[0.2, -0.6]],[[0.8, 0.5, 0.3],[-0.4, 0.4, 0.75]]],[[0.3, 0.25],[0.6, 0.5, -0.5]],[1,1])
 outputs = network.forward([1.5, 0.5], "ReLu", "Softmax")
+expects = [1, 0, 0]
 print("Outputs", outputs)
-print("Total Loss", CategoricalCrossEntropy(network, outputs, [1, 0, 0]))
+print("Total Loss", CategoricalCrossEntropy(network, outputs, expects))
 
 outputs = network.forward([0, 1], "ReLu", "Softmax")
+expects = [0, 0, 1]
 print("Outputs", outputs)
-print("Total Loss", CategoricalCrossEntropy(network, outputs, [0, 0, 1]))
+print("Total Loss", CategoricalCrossEntropy(network, outputs, expects))
 
 # ------ Model 1 ------
 # Outputs [1.095, 0.6349999999999999]
